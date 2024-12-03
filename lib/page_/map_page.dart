@@ -113,7 +113,7 @@ class _MapPage_pageState extends State<MapPage> {
                     visible: addareabool,
                     child: IconButton(
                         color: Colors.green,
-                        iconSize: 30,
+                        iconSize: 35,
                         onPressed: () {
                           color8 = color8 == Colors.white
                               ? Colors.red

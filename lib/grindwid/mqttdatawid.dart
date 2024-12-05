@@ -42,9 +42,9 @@ class _MqttdatawidState extends State<Mqttdatawid> {
 
   @override
   Widget build(BuildContext context) {
-    print('pubsn${pub_sub_name}');
-    print('premqlist${premqttlist}');
-    print('mqlist${mqttlist}');
+    // print('pubsn${pub_sub_name}');
+    // print('premqlist${premqttlist}');
+    // print('mqlist${mqttlist}');
     return Container(
       decoration: BoxDecoration(
           color: Colors.grey[850],

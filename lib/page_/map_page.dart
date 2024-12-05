@@ -1,4 +1,5 @@
 import 'dart:ffi';
+// import 'dart:nativewrappers/_internal/vm/lib/core_patch.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -28,6 +29,7 @@ String areaName = '';
 var count2 = 0;
 List ggggg = [];
 List ggggg1 = [];
+List cal_test = [0, 1, 2, 3, 4, 5];
 
 class _MapPage_pageState extends State<MapPage> {
   final _textCon = TextEditingController();
@@ -36,6 +38,24 @@ class _MapPage_pageState extends State<MapPage> {
   Widget build(BuildContext context) {
     var pointArea = polygonindex;
 
+    List cal_center_area(latlongin) {
+      List arlatin = [];
+      List arlongin = [];
+      for (var i = 0; i < latlongin.length; i++) {
+        arlatin.add(latlongin[i].latitude);
+        arlongin.add(latlongin[i].longitude);
+      }
+      arlatin.sort();
+      arlongin.sort();
+      debugPrint('arlatlong = ${arlatin}');
+      var latout = arlatin[0] + (arlatin[arlatin.length - 1] - arlatin[0]) / 2;
+      var longout =
+          arlongin[0] + (arlongin[arlongin.length - 1] - arlongin[0]) / 2;
+
+      return [latout, longout];
+    }
+
+    // debugPrint('cal center = ${cal_center_area(polygon_point[1])}');
     // debugPrint('polygonlen2 = $ggggg');
     return SafeArea(
       child: Scaffold(
@@ -90,13 +110,13 @@ class _MapPage_pageState extends State<MapPage> {
                                                             .mapanimated
                                                             .currentState
                                                             ?.changeMapmove(
-                                                                (polygon_point[
-                                                                            pointArea]
-                                                                        [0])
-                                                                    .latitude,
-                                                                (polygon_point[
-                                                                        pointArea][0])
-                                                                    .longitude);
+                                                                (cal_center_area(
+                                                                        polygon_point[
+                                                                            pointArea]))[
+                                                                    0],
+                                                                (cal_center_area(
+                                                                    polygon_point[
+                                                                        pointArea]))[1]);
                                                       },
                                                       child: Text(areaName),
                                                     ),
@@ -113,6 +133,7 @@ class _MapPage_pageState extends State<MapPage> {
                                                 Navigator.of(context).pop();
 
                                                 debugPrint('area = $area');
+                                                // debugPrint('area = ${cal_test}');
                                                 debugPrint(
                                                     'polygonlen11111 = $ggggg');
                                                 debugPrint(

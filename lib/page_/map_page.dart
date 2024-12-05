@@ -182,6 +182,7 @@ class _MapPage_pageState extends State<MapPage> {
                             polygonindex++;
                             print('polygonindex : $polygonindex');
                             count1 = 0;
+                            count = 0;
                           });
 
                           // debugPrint('polygonlen = $ggggg');
@@ -538,7 +539,7 @@ class AnimatedMapControllerPageState extends State<AnimatedMapControllerPage>
   void changeMapmove(latin, longin) {
     setState(() {
       // _animatedMapMove(LatLng(50, -0.09), 15);
-      _animatedMapMove(LatLng(latin, longin), 10);
+      _animatedMapMove(LatLng(latin, longin), 15);
     });
   }
 

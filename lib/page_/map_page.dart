@@ -25,12 +25,18 @@ var color8 = Colors.white;
 var color7 = Colors.white;
 var areas;
 String areaName = '';
+var count2 = 0;
+List ggggg = [];
+List ggggg1 = [];
 
 class _MapPage_pageState extends State<MapPage> {
   final _textCon = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    var pointArea = polygonindex;
+
+    // debugPrint('polygonlen2 = $ggggg');
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color.fromARGB(255, 54, 51, 51),
@@ -46,67 +52,12 @@ class _MapPage_pageState extends State<MapPage> {
                       color: color8,
                       iconSize: 30,
                       onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                                  actions: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: Text('close')),
-                                        TextButton(
-                                            onPressed: () {
-                                              setState(() {
-                                                areaName = _textCon.text;
-                                              });
-                                              area.add(
-                                                MaterialButton(
-                                                  onPressed: () => AnimatedMapControllerPage
-                                                      .mapanimated.currentState
-                                                      ?.changeMapmove(
-                                                          (polygon_point[
-                                                                  polygon_point
-                                                                          .length -
-                                                                      1][0])
-                                                              .latitude,
-                                                          (polygon_point[
-                                                                  polygon_point
-                                                                          .length -
-                                                                      1][0])
-                                                              .longitude),
-                                                  child: Text(areaName),
-                                                ),
-                                              );
-
-                                              Navigator.of(context).pop();
-
-                                              debugPrint('area = $area');
-                                            },
-                                            child: Text('add')),
-                                      ],
-                                    )
-                                  ],
-                                  title: Text('ADD AREA'),
-                                  content: TextField(
-                                    controller: _textCon,
-                                    decoration: InputDecoration(
-                                      hintText: '$areas',
-                                      border: InputBorder.none,
-                                    ),
-                                    cursorColor: Colors.white,
-                                    maxLines: 6,
-                                  ),
-                                ));
-
-                        color8 =
-                            color8 == Colors.white ? Colors.red : Colors.white;
-                        addareabool = addareabool == false ? true : false;
-                        // setState(() {});
+                        setState(() {
+                          color8 = color8 == Colors.white
+                              ? Colors.red
+                              : Colors.white;
+                          addareabool = addareabool == false ? true : false;
+                        });
                       },
                       icon: const Icon(Icons.add_alarm)),
                   Visibility(
@@ -115,6 +66,81 @@ class _MapPage_pageState extends State<MapPage> {
                         color: Colors.green,
                         iconSize: 35,
                         onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                    actions: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: Text('close')),
+                                          TextButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  areaName = _textCon.text;
+                                                  area.add(
+                                                    MaterialButton(
+                                                      onPressed: () {
+                                                        AnimatedMapControllerPage
+                                                            .mapanimated
+                                                            .currentState
+                                                            ?.changeMapmove(
+                                                                (polygon_point[
+                                                                            pointArea]
+                                                                        [0])
+                                                                    .latitude,
+                                                                (polygon_point[
+                                                                        pointArea][0])
+                                                                    .longitude);
+                                                      },
+                                                      child: Text(areaName),
+                                                    ),
+                                                  );
+                                                });
+
+                                                ggggg.add([
+                                                  (polygon_point[pointArea][0])
+                                                      .latitude,
+                                                  (polygon_point[pointArea][0])
+                                                      .longitude
+                                                ]);
+
+                                                Navigator.of(context).pop();
+
+                                                debugPrint('area = $area');
+                                                debugPrint(
+                                                    'polygonlen11111 = $ggggg');
+                                                debugPrint(
+                                                    'pointarea = $pointArea');
+                                              },
+                                              child: Text('add')),
+                                        ],
+                                      )
+                                    ],
+                                    title: Text('ADD AREA'),
+                                    content: TextField(
+                                      controller: _textCon,
+                                      decoration: InputDecoration(
+                                        hintText: '$areas',
+                                        border: InputBorder.none,
+                                      ),
+                                      cursorColor: Colors.white,
+                                      maxLines: 6,
+                                    ),
+                                  ));
+                          // ggggg.add([
+                          //   (polygon_point[polygon_point.length - 1][0])
+                          //       .latitude,
+                          //   (polygon_point[polygon_point.length - 1][0])
+                          //       .longitude
+                          // ]);
+                          // debugPrint('polygonlen = $ggggg');
+                          // debugPrint('polygonlen8 = $polygon_point');
                           color8 = color8 == Colors.white
                               ? Colors.red
                               : Colors.white;
@@ -133,8 +159,11 @@ class _MapPage_pageState extends State<MapPage> {
                               _markers1.remove('${i}b');
                             }
                             polygonindex++;
+                            print('polygonindex : $polygonindex');
                             count1 = 0;
                           });
+
+                          // debugPrint('polygonlen = $ggggg');
                         },
                         icon: const Icon(Icons.add_alarm)),
                   ),
@@ -413,16 +442,7 @@ var count1 = 0;
 var polygonindex = 0;
 List<Widget> area = [];
 List<Polygon> polygonlist = [];
-List<List<LatLng>> polygon_point = [
-  // [
-  //   LatLng(36.95, -9.5),
-  //   LatLng(42.25, -9.5),
-  // ],
-  // [
-  //   LatLng(36.95, -9.5),
-  //   LatLng(42.25, -9.5),
-  // ]
-];
+List<List<LatLng>> polygon_point = [];
 
 class AnimatedMapControllerPageState extends State<AnimatedMapControllerPage>
     with TickerProviderStateMixin {
@@ -430,9 +450,9 @@ class AnimatedMapControllerPageState extends State<AnimatedMapControllerPage>
   static const _inProgressId = 'AnimatedMapController#MoveInProgress';
   static const _finishedId = 'AnimatedMapController#MoveFinished';
 
-  static const _london = LatLng(51.5, -0.09);
-  static const _paris = LatLng(48.8566, 2.3522);
-  static const _dublin = LatLng(53.3498, -6.2603);
+  // static const _london = LatLng(51.5, -0.09);
+  // static const _paris = LatLng(48.8566, 2.3522);
+  // static const _dublin = LatLng(53.3498, -6.2603);
 
   final mapController = MapController();
 
@@ -490,9 +510,9 @@ class AnimatedMapControllerPageState extends State<AnimatedMapControllerPage>
     controller.forward();
   }
 
-  void add_area() {
-    setState(() {});
-  }
+  // void add_area() {
+  //   setState(() {});
+  // }
 
   void changeMapmove(latin, longin) {
     setState(() {
@@ -503,9 +523,7 @@ class AnimatedMapControllerPageState extends State<AnimatedMapControllerPage>
 
   @override
   Widget build(BuildContext context) {
-    // print((polygon_point[0][0]).latitude);
-    // changeMapmove();
-    // _animatedMapMove(LatLng(50, -0.09), 10);
+    debugPrint('polygonlen = $ggggg');
     return Scaffold(
       // appBar: AppBar(title: const Text('Animated MapController')),
       body: Padding(
@@ -584,7 +602,7 @@ class AnimatedMapControllerPageState extends State<AnimatedMapControllerPage>
                 options: MapOptions(
                   initialCenter: LatLng(51.5, -0.09),
                   initialZoom: 5,
-                  maxZoom: 10,
+                  maxZoom: 20,
                   minZoom: 3,
                   onTap: (_, LatLng) {
                     // setState(() {
